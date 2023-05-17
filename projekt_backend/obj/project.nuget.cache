@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "qoJG6NhpERXbXd51AITMdDe3wykQcizyTc+zV3JBuWKIwIzqSsgRgOpGpH43GTVBqavbZ2EuN8T6rdgSP+VipQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kajet\\Desktop\\Studia\\sixth_sem\\ZTPAI\\projekt_backend\\projekt_backend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kajet\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\kajet\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\kajet\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\kajet\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\kajet\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\kajet\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
