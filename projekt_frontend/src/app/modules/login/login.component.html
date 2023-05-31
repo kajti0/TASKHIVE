@@ -1,0 +1,14 @@
+<div class="login-container">
+    <h1>TASKHIVE</h1>
+    <form (submit)="login()">
+      <div class="login">
+        <input type="text" id="username" placeholder="login/email" [(ngModel)]="username" name="username" required>
+      </div>
+      <div class="password">
+        <input type="password" id="password" placeholder="password" [(ngModel)]="password" name="password" required>
+      </div>
+      <button type="submit">log in</button>
+      <button type="submit">register</button>
+    </form>
+  </div>
+  

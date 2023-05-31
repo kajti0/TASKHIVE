@@ -1,0 +1,26 @@
+<div class="calendar">
+    <div class="header">
+        <button (click)="previousMonth()">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+      <h2>{{ currentMonth | date: 'MMMM yyyy' }}</h2>
+      <button (click)="nextMonth()">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let week of weeks">
+          <td *ngFor="let day of week" (click)="selectDate(day)">
+            {{ day.date !== null ? day.date : '' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

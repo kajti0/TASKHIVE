@@ -1,0 +1,52 @@
+.calendar {
+    font-family: 'Share Tech Mono', monospace;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .header button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  td {
+    cursor: pointer;
+  }
+  
+  td:hover {
+    background-color: darkgray;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .calendar {
+      font-size: 20px;
+    }
+    
+    th,
+    td {
+      padding: 5px;
+    }
+  }
+  
