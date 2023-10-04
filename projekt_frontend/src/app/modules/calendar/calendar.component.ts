@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { StatsDialogComponent } from './stats-dialog/stats-dialog.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class CalendarComponent {
   weeks: { date: number | null, isCurrentMonth: boolean, eventTitle: string }[][] = [];
   selectedDay: { date: number | null, isCurrentMonth: boolean, eventTitle: string };
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private router: Router) {
     this.currentMonth = new Date();
     this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     this.collapsed = false;
@@ -56,7 +57,7 @@ export class CalendarComponent {
   
 
   logout(){
-
+    this.router.navigate(['/login']);
   }
 
   myAccount(){
