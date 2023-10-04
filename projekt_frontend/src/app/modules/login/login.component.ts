@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -12,12 +13,19 @@ export class LoginComponent {
   username?: string;
   password?: string;
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginService: LoginService) {}
 
   login() {
-    // Logika obsługi logowania - np. wysłanie żądania do backendu
-    console.log('Logowanie:', this.username, this.password);
-
-    this.router.navigate(['/calendar']);
+    this.loginService.login(this.username ?? '', this.password ?? '').subscribe(
+      (response: any) => {
+        console.log('Zalogowano:', response);
+        // Możesz tu dodać obsługę sukcesu, np. przeniesienie do strony kalendarza
+        this.router.navigate(['\calendar']);
+      },
+      (error: any) => {
+        console.error('Błąd logowania:', error);
+        // Możesz tu dodać obsługę błędu, np. wyświetlenie komunikatu użytkownikowi
+      }
+    );
   }
 }
