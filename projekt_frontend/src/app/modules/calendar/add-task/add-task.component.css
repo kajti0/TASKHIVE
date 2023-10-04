@@ -1,0 +1,51 @@
+h1 {
+    font-family: 'Share Tech Mono', monospace;
+    color: #000000; /* Kolor futurystyczny dla nagłówka */
+    text-align: center;
+    background-color: #b7b4b4;
+    margin: 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #b7b4b4;
+  }
+  
+  label {
+    font-family: 'Share Tech Mono', monospace;
+    color: #000000; /* Kolor etykiet */
+    margin-top: 10px;
+  }
+  
+  input,
+  textarea {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background-color: #001a1a; /* Kolor tła pól tekstowych */
+    color: #ffffff; /* Kolor tekstu w polach tekstowych */
+  }
+  
+  button {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  button[type="submit"] {
+    background-color: #000000; /* Kolor tła przycisku "Save" */
+    color: #ffffff; /* Kolor tekstu przycisku "Save" */
+  }
+  
+  button[type="cancel"] {
+    background-color: #001a1a; /* Kolor tła przycisku "Cancel" */
+    color: #ffffff; /* Kolor tekstu przycisku "Cancel" */
+  }
+  

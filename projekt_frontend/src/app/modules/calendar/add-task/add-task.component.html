@@ -1,0 +1,14 @@
+<h1>task creator</h1>
+<form (ngSubmit)="onSaveClick()" #eventForm="ngForm">
+  <label for="eventDate">Date:</label>
+  <input type="date" id="eventDate" name="eventDate" [(ngModel)]="event.date" required>
+
+  <label for="eventTitle">Title:</label>
+  <input type="text" id="eventTitle" name="eventTitle" [(ngModel)]="event.title" required>
+
+  <label for="eventDescription">Description:</label>
+  <textarea id="eventDescription" name="eventDescription" [(ngModel)]="event.description"></textarea>
+
+  <button type="button" (click)="onCancelClick()">Cancel</button>
+  <button type="submit">Save</button>
+</form>
