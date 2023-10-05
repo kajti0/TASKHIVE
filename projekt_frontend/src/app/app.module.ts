@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddTaskComponent } from './modules/calendar/add-task/add-task.component';
 import { StatsDialogComponent } from './modules/calendar/stats-dialog/stats-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './modules/register/register.component';
 
 
 
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     CalendarComponent,
     AddTaskComponent,
     StatsDialogComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

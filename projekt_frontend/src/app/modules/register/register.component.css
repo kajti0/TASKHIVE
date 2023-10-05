@@ -1,0 +1,90 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    background-color: black;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  .register-container h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  .login,
+  .password,
+  .confirm-password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .login input,
+  .password input,
+  .confirm-password input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    background-color: lightgray;
+    color: black;
+    font-size: 16px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  .login input::placeholder,
+  .password input::placeholder,
+  .confirm-password input::placeholder {
+    color: black;
+  }
+
+  .login input,
+  .password input,
+  .confirm-password input.error {
+    border-color:red;
+  }
+  
+  button {
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    flex-direction: column;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  button:hover {
+    background-color: darkgray;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .register-container {
+      font-size: 20px;
+    }
+  
+    .register-container h1 {
+      font-size: 28px;
+    }
+  
+    .login input,
+    .email input,
+    .password input,
+    .confirm-password input {
+      font-size: 14px;
+    }
+  
+    button {
+      font-size: 14px;
+    }
+  }
+  

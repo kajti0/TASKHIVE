@@ -1,0 +1,16 @@
+<div class="register-container">
+    <h1>TASKHIVE</h1>
+    <form (submit)="register()">
+      <div class="login">
+        <input type="text" id="username" placeholder="login/email" [(ngModel)]="username" name="username" required [class.error]="!username">
+      </div>
+      <div class="password">
+        <input type="password" id="password" placeholder="password" [(ngModel)]="password" name="password" required [class.error]="!password">
+      </div>
+      <div class="confirm-password">
+        <input type="password" id="confirmPassword" placeholder="confirm password" [(ngModel)]="confirmPassword" name="confirmPassword" required [class.error]="!confirmPassword">
+      </div>
+      <button type="submit">register</button>
+    </form>
+  </div>
+  
