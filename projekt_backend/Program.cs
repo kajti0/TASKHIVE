@@ -26,6 +26,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddScoped<ISQLRepository, SQLRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<IHappeningsService, HappeningsService>();
 
 
 builder.Services.AddSwaggerGen(c =>

@@ -117,7 +117,10 @@ namespace projekt_backend.Controllers
         [HttpGet("myid")]
         public IActionResult GetMyId()
         {
-            return Ok(_currentUserService.GetCurrentUserId());
+            var userId = _currentUserService.GetCurrentUserId();
+            if (userId == null) return BadRequest();
+            var user = _usersService.GetUserById(userId.Value);
+            return Ok(user);
         }
 
     }
