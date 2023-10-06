@@ -9,16 +9,19 @@ namespace projekt_backend.Services
     {
         private readonly ILogger<HappeningsService> _logger;
         private readonly ISQLRepository _sqlRepository;
+        private readonly ICurrentUserService currentUserService;
 
-        public HappeningsService(ILogger<HappeningsService> logger, ISQLRepository sqlRepository)
+        public HappeningsService(ILogger<HappeningsService> logger, ISQLRepository sqlRepository, ICurrentUserService currentUserService)
         {
             _logger = logger;
             _sqlRepository = sqlRepository;
+            this.currentUserService = currentUserService;
         }
 
         public void AddHappening(NewHappeningDto happening)
         {
             _logger.LogInformation("[START] Add new happening");
+            happening.UserId = (int)this.currentUserService.GetCurrentUserId();
             _sqlRepository.AddUserItem(happening);
             _logger.LogInformation("[DONE] Add new happening");
         }

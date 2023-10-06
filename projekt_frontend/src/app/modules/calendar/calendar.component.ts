@@ -4,6 +4,8 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { StatsDialogComponent } from './stats-dialog/stats-dialog.component';
 import { Router } from '@angular/router';
 import { DayDetailsComponent } from './day-details/day-details.component';
+import { CalendarService } from 'src/app/services/calendar.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -18,13 +20,27 @@ export class CalendarComponent {
   weeks: {fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitles: string[] }[][] = [];
   selectedDay: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitles: string[] }
 
-  constructor(private dialog: MatDialog, private router: Router) {
+  constructor(private dialog: MatDialog, private router: Router, private calendarService: CalendarService, private loginService: LoginService) {
+    
     this.currentMonth = new Date();
     this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     this.collapsed = false;
     this.selectedDay = { fullDate: null, date: null, isCurrentMonth: false, eventTitles: [] };
     this.generateCalendar();
   }
+  /*
+  ngOnInit() {
+    this.loadHappenings();
+  }
+  */
+
+  loadHappenings() {
+    this.calendarService.getAllHappenings().subscribe((happenings) => {
+      console.log('Happenings:', happenings);
+      this.calendarService.setHappenings(happenings);
+    });
+  }
+  
 
   toggleMenu() {
     this.collapsed = !this.collapsed;
@@ -88,6 +104,7 @@ export class CalendarComponent {
   
   
   logout(){
+    this.loginService.logout();
     this.router.navigate(['/login']);
   }
 
@@ -106,30 +123,52 @@ export class CalendarComponent {
   }
   
   generateCalendar() {
+    this.loadHappenings();
     const year = this.currentMonth.getFullYear();
     const month = this.currentMonth.getMonth();
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
     const firstDayOfWeek = firstDayOfMonth.getDay();
     const daysInMonth = lastDayOfMonth.getDate();
+    const happenings = this.calendarService.getHappenings();
   
     this.weeks = [];
     let week: any[] = [];
     for (let i = 0; i < firstDayOfWeek; i++) {
       week.push({ fullDate: null, date: null, isCurrentMonth: false, eventTitles: [] });
     }
+  
+    // Load happenings for the current month
+    const happeningsForMonth = happenings.filter((happening) => {
+      const happeningDate = new Date(happening.date);
+      return happeningDate.getFullYear() === year && happeningDate.getMonth() === month;
+    });
+  
     for (let i = 1; i <= daysInMonth; i++) {
       const fullDate = new Date(year, month, i);
       const isCurrentMonth = month === firstDayOfMonth.getMonth();
       const eventTitles: string[] = [];
+  
+      // Find happenings for the current day
+      const happeningsForDay = happeningsForMonth.filter((happening) => {
+        const happeningDate = new Date(happening.date);
+        return happeningDate.getDate() === i;
+      });
+  
+      happeningsForDay.forEach((happening) => {
+        eventTitles.push(happening.title);
+      });
+  
       week.push({ fullDate, date: i, isCurrentMonth, eventTitles });
       if (week.length === 7) {
         this.weeks.push(week);
         week = [];
       }
     }
+  
     if (week.length > 0) {
       this.weeks.push(week);
     }
   }
+  
 }
