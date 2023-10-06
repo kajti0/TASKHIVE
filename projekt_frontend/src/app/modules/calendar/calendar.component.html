@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let week of weeks">
-            <td *ngFor="let day of week" (click)="selectDate(day)">
+            <td *ngFor="let day of week" (click)="openDayDetailsDialog(day)">
               {{ day.date !== null ? day.date : '' }}
               <span *ngIf="day.eventTitle">{{ day.eventTitle }}</span>
             </td>

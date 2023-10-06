@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { StatsDialogComponent } from './stats-dialog/stats-dialog.component';
 import { Router } from '@angular/router';
+import { DayDetailsComponent } from './day-details/day-details.component';
 
 
 @Component({
@@ -14,14 +15,14 @@ export class CalendarComponent {
   currentMonth: Date;
   daysOfWeek: string[];
   collapsed: boolean;
-  weeks: { date: number | null, isCurrentMonth: boolean, eventTitle: string }[][] = [];
-  selectedDay: { date: number | null, isCurrentMonth: boolean, eventTitle: string };
+  weeks: {fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string }[][] = [];
+  selectedDay: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string }
 
   constructor(private dialog: MatDialog, private router: Router) {
     this.currentMonth = new Date();
     this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     this.collapsed = false;
-    this.selectedDay = { date: null, isCurrentMonth: false, eventTitle: '' };
+    this.selectedDay = { fullDate: null, date: null, isCurrentMonth: false, eventTitle: '' };
     this.generateCalendar();
   }
 
@@ -47,7 +48,7 @@ export class CalendarComponent {
   seeStats() {
     const dialogRef = this.dialog.open(StatsDialogComponent, {
       width: '300px',
-      data: { productivity: 70, selfCare: 80 } // Ustaw sztywne wartości
+      data: { productivity: 70, selfCare: 80 } // sztywne wartosci do zmiany
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -55,7 +56,20 @@ export class CalendarComponent {
     });
   }
   
-
+  openDayDetailsDialog(day: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string }) {
+    console.log('selected day: ', this.selectedDay);
+    console.log('day in function: ', day);
+    const dialogRef = this.dialog.open(DayDetailsComponent, {
+      width: '300px',
+      data: { day },
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Day details dialog closed');
+    });
+  }
+  
+  
   logout(){
     this.router.navigate(['/login']);
   }
@@ -73,13 +87,6 @@ export class CalendarComponent {
     this.currentMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + 1, this.currentMonth.getDate());
     this.generateCalendar();
   }
-
-  selectDate(day: { date: number | null, isCurrentMonth: boolean, eventTitle: string }) {
-    this.selectedDay = day;
-    if (day.date !== null) {
-      console.log('Selected date:', day.date);
-    }
-  }
   
   generateCalendar() {
     const year = this.currentMonth.getFullYear();
@@ -88,16 +95,17 @@ export class CalendarComponent {
     const lastDayOfMonth = new Date(year, month + 1, 0);
     const firstDayOfWeek = firstDayOfMonth.getDay();
     const daysInMonth = lastDayOfMonth.getDate();
-
+  
     this.weeks = [];
-    let week: { date: number | null, isCurrentMonth: boolean, eventTitle: string}[] = [];
+    let week: any[] = [];
     for (let i = 0; i < firstDayOfWeek; i++) {
-      week.push({ date: null, isCurrentMonth: false, eventTitle: ''});
+      week.push({ fullDate: null, date: null, isCurrentMonth: false, eventTitle: '' });
     }
     for (let i = 1; i <= daysInMonth; i++) {
+      const fullDate = new Date(year, month, i);
       const isCurrentMonth = month === firstDayOfMonth.getMonth();
       const eventTitle = '';
-      week.push({ date: i, isCurrentMonth, eventTitle});
+      week.push({ fullDate, date: i, isCurrentMonth, eventTitle });
       if (week.length === 7) {
         this.weeks.push(week);
         week = [];

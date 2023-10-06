@@ -85,7 +85,7 @@ td:hover {
 
 @media screen and (max-width: 768px) {
   .menu-toggle {
-    display: block; /* Pokaż przycisk na mniejszych ekranach */
+    display: block; 
   }
 
   .sidebar{
@@ -101,7 +101,7 @@ td:hover {
     flex: 0;
   }
   .container.collapsed .calendar {
-    flex: 1; /* Po zwinięciu menu, kalendarz zajmuje całą dostępną przestrzeń */
+    flex: 1; 
   }
   th,
   td {
