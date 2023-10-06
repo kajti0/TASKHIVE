@@ -28,8 +28,8 @@
         <tbody>
           <tr *ngFor="let week of weeks">
             <td *ngFor="let day of week" (click)="openDayDetailsDialog(day)">
-              {{ day.date !== null ? day.date : '' }}
-              <span *ngIf="day.eventTitle">{{ day.eventTitle }}</span>
+              <div class="day-number">{{ day.date !== null ? day.date : '' }}</div>
+              <div *ngIf="day.eventTitles" class="event-titles" [innerHTML]="day.eventTitles.join('<br>')"></div>
             </td>
           </tr>
         </tbody>

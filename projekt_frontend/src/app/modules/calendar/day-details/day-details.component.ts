@@ -7,9 +7,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./day-details.component.css']
 })
 export class DayDetailsComponent {
-  day: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string } = { fullDate: null, date: null, isCurrentMonth: false, eventTitle: '' };
+  day: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitles: string[] } = { fullDate: null, date: null, isCurrentMonth: false, eventTitles: [] };
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { day: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string } }) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { day: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitles: string[] } }) {
     this.day = data.day;
   }
 }

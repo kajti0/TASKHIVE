@@ -77,6 +77,23 @@ td {
 
 td {
   cursor: pointer;
+  position: relative;
+  height: 14vh;
+}
+
+.day-number {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.event-titles {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 12px;
 }
 
 td:hover {

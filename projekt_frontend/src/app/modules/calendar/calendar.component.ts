@@ -15,14 +15,14 @@ export class CalendarComponent {
   currentMonth: Date;
   daysOfWeek: string[];
   collapsed: boolean;
-  weeks: {fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string }[][] = [];
-  selectedDay: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string }
+  weeks: {fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitles: string[] }[][] = [];
+  selectedDay: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitles: string[] }
 
   constructor(private dialog: MatDialog, private router: Router) {
     this.currentMonth = new Date();
     this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     this.collapsed = false;
-    this.selectedDay = { fullDate: null, date: null, isCurrentMonth: false, eventTitle: '' };
+    this.selectedDay = { fullDate: null, date: null, isCurrentMonth: false, eventTitles: [] };
     this.generateCalendar();
   }
 
@@ -38,13 +38,29 @@ export class CalendarComponent {
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.selectedDay.eventTitle = result.title;
-        console.log('Event added:', result);
+      if (result && result.date) {
+        const date = new Date(result.date);
+        const selectedDate = date.getDate();
+  
+        const targetWeek = this.weeks.find(week => week.some(day => day.date === selectedDate));
+  
+        if (targetWeek) {
+          const targetDayInWeek = targetWeek.find(day => day.date === selectedDate);
+  
+          if (targetDayInWeek) {
+            const updatedEventTitles = [...targetDayInWeek.eventTitles, result.title];
+            targetDayInWeek.eventTitles = updatedEventTitles;
+            console.log('Event added:', result);
+          } else {
+            console.error(`Day ${selectedDate} not found in the current month.`);
+          }
+        } else {
+          console.error(`Week not found for day ${selectedDate}.`);
+        }
       }
     });
   }
-
+  
   seeStats() {
     const dialogRef = this.dialog.open(StatsDialogComponent, {
       width: '300px',
@@ -56,7 +72,8 @@ export class CalendarComponent {
     });
   }
   
-  openDayDetailsDialog(day: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitle: string }) {
+  openDayDetailsDialog(day: { fullDate: Date | null, date: number | null, isCurrentMonth: boolean, eventTitles: string[] }) {
+    this.selectedDay = day;
     console.log('selected day: ', this.selectedDay);
     console.log('day in function: ', day);
     const dialogRef = this.dialog.open(DayDetailsComponent, {
@@ -99,13 +116,13 @@ export class CalendarComponent {
     this.weeks = [];
     let week: any[] = [];
     for (let i = 0; i < firstDayOfWeek; i++) {
-      week.push({ fullDate: null, date: null, isCurrentMonth: false, eventTitle: '' });
+      week.push({ fullDate: null, date: null, isCurrentMonth: false, eventTitles: [] });
     }
     for (let i = 1; i <= daysInMonth; i++) {
       const fullDate = new Date(year, month, i);
       const isCurrentMonth = month === firstDayOfMonth.getMonth();
-      const eventTitle = '';
-      week.push({ fullDate, date: i, isCurrentMonth, eventTitle });
+      const eventTitles: string[] = [];
+      week.push({ fullDate, date: i, isCurrentMonth, eventTitles });
       if (week.length === 7) {
         this.weeks.push(week);
         week = [];
