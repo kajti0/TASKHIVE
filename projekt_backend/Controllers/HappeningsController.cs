@@ -51,7 +51,7 @@ namespace projekt_backend.Controllers
         }
 
         [Route("UpdateHappening")]
-        [HttpPost]
+        [HttpPut]
         public IActionResult UpdateHappening([FromBody] Happening happening)
         {
             _happeningsService.UpdateHappening(happening);

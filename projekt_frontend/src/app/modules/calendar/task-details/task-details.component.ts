@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { CalendarService } from 'src/app/services/calendar.service';
+import { EditEventComponent } from '../edit-event/edit-event.component';
 
 @Component({
   selector: 'app-task-details',
@@ -12,6 +13,7 @@ export class TaskDetailsComponent {
 
   constructor
   (@Inject(MAT_DIALOG_DATA) public data: { taskDetails: any }, 
+  private dialog: MatDialog,
   private calendarService: CalendarService, 
   private dialogRef: MatDialogRef<TaskDetailsComponent>) {
     this.taskDetails = data.taskDetails;
@@ -19,7 +21,17 @@ export class TaskDetailsComponent {
   handleCancelClick(): void {
     this.dialogRef.close();
   }
-  handleEditClick(){}
+  editEvent(): void {
+    const dialogRef = this.dialog.open(EditEventComponent, {
+      width: '300px',
+      data: { editedEvent: this.taskDetails }
+    });
+  
+    dialogRef.afterClosed().subscribe(() => {
+      this.dialogRef.close();
+    });
+  }
+
   deleteEvent(): void {
     if (this.taskDetails.id) {
       this.calendarService.deleteHappening(this.taskDetails.id).subscribe(

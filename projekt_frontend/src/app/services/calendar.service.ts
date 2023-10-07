@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, map } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -19,6 +19,17 @@ export class CalendarService {
   calendarUpdate$ = this.calendarUpdateSubject.asObservable();
 
   constructor(private http: HttpClient, private authService: AuthService) {}
+
+  getUserId(): Observable<number> {
+    const headers = this.createAuthorizationHeader();
+  
+    return this.http.get<any>('https://localhost:7227/api/Auth/myid', { headers })
+      .pipe(
+        map(response => response.id)
+      );
+  }
+  
+  
 
   getAllHappenings(): Observable<any> {
     const headers = this.createAuthorizationHeader();
@@ -44,7 +55,16 @@ export class CalendarService {
       tap(() => {
         this.calendarUpdateSubject.next();
       })
-    );;
+    );
+  }
+
+  updateHappening(updatedHappening: any): Observable<any> {
+    const headers = this.createAuthorizationHeader();
+    return this.http.put(`${this.baseUrl}/UpdateHappening`, updatedHappening, { headers }).pipe(
+      tap(() => {
+        this.calendarUpdateSubject.next();
+      })
+    );
   }
 
   private createAuthorizationHeader(): HttpHeaders {
