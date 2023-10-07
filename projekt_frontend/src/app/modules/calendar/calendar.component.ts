@@ -28,19 +28,24 @@ export class CalendarComponent {
     this.selectedDay = { fullDate: null, date: null, isCurrentMonth: false, eventTitles: [] };
     this.generateCalendar();
   }
-  /*
   ngOnInit() {
-    this.loadHappenings();
-  }
-  */
-
-  loadHappenings() {
-    this.calendarService.getAllHappenings().subscribe((happenings) => {
-      console.log('Happenings:', happenings);
-      this.calendarService.setHappenings(happenings);
+    this.calendarService.calendarUpdate$.subscribe(() => {
+      this.generateCalendar();
     });
   }
+
+  async loadHappenings() {
+    const happenings = await this.calendarService.getAllHappenings().toPromise();
+    console.log('Happenings:', happenings);
+    this.calendarService.setHappenings(happenings);
   
+  }
+  
+  getEventByDateAndTitle(fullDate: Date, title: string) {
+    this.loadHappenings();
+    const Happenings = this.calendarService.getHappenings();
+    return Happenings.find(event => event.date === fullDate.toISOString() && event.title === title);
+  }
 
   toggleMenu() {
     this.collapsed = !this.collapsed;
@@ -92,10 +97,12 @@ export class CalendarComponent {
     this.selectedDay = day;
     console.log('selected day: ', this.selectedDay);
     console.log('day in function: ', day);
+    this.calendarService.setSelectedEvent(day);
     const dialogRef = this.dialog.open(DayDetailsComponent, {
-      width: '300px',
-      data: { day },
-    });
+    width: '300px',
+    data: { day },
+  });
+
   
     dialogRef.afterClosed().subscribe(result => {
       console.log('Day details dialog closed');
@@ -122,8 +129,8 @@ export class CalendarComponent {
     this.generateCalendar();
   }
   
-  generateCalendar() {
-    this.loadHappenings();
+  async generateCalendar() {
+    await this.loadHappenings();
     const year = this.currentMonth.getFullYear();
     const month = this.currentMonth.getMonth();
     const firstDayOfMonth = new Date(year, month, 1);
@@ -138,7 +145,6 @@ export class CalendarComponent {
       week.push({ fullDate: null, date: null, isCurrentMonth: false, eventTitles: [] });
     }
   
-    // Load happenings for the current month
     const happeningsForMonth = happenings.filter((happening) => {
       const happeningDate = new Date(happening.date);
       return happeningDate.getFullYear() === year && happeningDate.getMonth() === month;
@@ -149,7 +155,6 @@ export class CalendarComponent {
       const isCurrentMonth = month === firstDayOfMonth.getMonth();
       const eventTitles: string[] = [];
   
-      // Find happenings for the current day
       const happeningsForDay = happeningsForMonth.filter((happening) => {
         const happeningDate = new Date(happening.date);
         return happeningDate.getDate() === i;

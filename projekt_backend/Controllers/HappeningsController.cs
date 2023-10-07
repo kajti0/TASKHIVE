@@ -34,9 +34,9 @@ namespace projekt_backend.Controllers
             return Ok(result);
         }
 
-        [Route("RemoveHappening")]
-        [HttpPost]
-        public IActionResult RemoveHappening([FromBody] int id)
+        [Route("RemoveHappening/{id}")]
+        [HttpDelete]
+        public IActionResult RemoveHappening(int id)
         {
             _happeningsService.RemoveHappening(id);
             return Ok();

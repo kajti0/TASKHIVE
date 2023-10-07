@@ -1,3 +1,15 @@
 <h1>{{ day.fullDate | date: 'd.M.yyyy' }}</h1>
-<p>{{ day.fullDate | date: 'EEEE' }}</p>
-<p>Wydarzenia: {{ day.eventTitles }}</p>
+<h1>{{ day.fullDate | date: 'EEEE' }}</h1>
+
+<div class="day-details-container">
+    <ng-container *ngIf="day.eventTitles.length > 0; else noTasks">
+        <div *ngFor="let title of day.eventTitles">
+          <button (click)="openTaskDetails(title)">{{ title }}</button>
+        </div>
+      </ng-container>
+      
+      <ng-template #noTasks>
+        <p>No tasks for this day.</p>
+      </ng-template>
+</div>
+

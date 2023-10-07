@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="sidebar">
-    <button class="menu-toggle" (click)="toggleMenu()">
-      <i class="fa-solid fa-bars"></i>
-    </button>
+<div class="container" [ngClass]="{'collapsed': collapsed}">
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <div class="sidebar" [ngClass]="{'collapsed': collapsed}">
     <button (click)="addEvent()">Add Task</button>
     <button (click)="seeStats()">See Stats</button>
     <button (click)="myAccount()">My Account</button>

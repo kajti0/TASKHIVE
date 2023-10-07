@@ -21,16 +21,13 @@ export class AddTaskComponent {
   }
 
   onSaveClick(): void {
-    // Tutaj możesz przekazać event do bazy danych, używając odpowiedniej funkcji z CalendarService
     this.calendarService.addHappening(this.event).subscribe(
       (response) => {
         console.log('Dodano wydarzenie:', response);
-        // Możesz tutaj dodać obsługę sukcesu, np. odświeżenie listy wydarzeń w kalendarzu
         this.dialogRef.close(this.event);
       },
       (error) => {
         console.error('Błąd dodawania wydarzenia:', error);
-        // Możesz tutaj dodać obsługę błędu, np. wyświetlenie komunikatu użytkownikowi
       }
     );
   }

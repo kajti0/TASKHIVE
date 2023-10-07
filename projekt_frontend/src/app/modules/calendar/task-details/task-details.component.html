@@ -1,0 +1,10 @@
+<div class="task-details-container">
+    <h1>{{ taskDetails.title }}</h1>
+    <p>{{ taskDetails.description }}</p>
+    <div class="buttons-container">
+      <button class="edit-button" (click)="handleEditClick()">Edit</button>
+      <button class="delete-button" (click)="deleteEvent()">Delete</button>
+      <button class="cancel-button" (click)="handleCancelClick()">Close</button>
+    </div>
+  </div>
+  

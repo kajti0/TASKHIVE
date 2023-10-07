@@ -13,6 +13,7 @@ import { StatsDialogComponent } from './modules/calendar/stats-dialog/stats-dial
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './modules/register/register.component';
 import { DayDetailsComponent } from './modules/calendar/day-details/day-details.component';
+import { TaskDetailsComponent } from './modules/calendar/task-details/task-details.component';
 
 
 
@@ -24,7 +25,8 @@ import { DayDetailsComponent } from './modules/calendar/day-details/day-details.
     AddTaskComponent,
     StatsDialogComponent,
     RegisterComponent,
-    DayDetailsComponent
+    DayDetailsComponent,
+    TaskDetailsComponent
   ],
   imports: [
     BrowserModule,

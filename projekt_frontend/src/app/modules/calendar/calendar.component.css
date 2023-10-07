@@ -1,5 +1,7 @@
-.mat-typography h2 {
-  font-family: 'Share Tech Mono', monospace;;
+h2 {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: larger;
+  margin-top: 3vh;
 }
 
 .menu-toggle {
@@ -85,7 +87,7 @@ td {
   position: absolute;
   top: 0;
   right: 0;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -102,11 +104,55 @@ td:hover {
 
 @media screen and (max-width: 768px) {
   .menu-toggle {
+    display: block;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sidebar {
+    flex: 0;
+    order: 2;
+    width: 100%;
+    height: auto;
+    transition: height 0.3s;
+    overflow: hidden;
+  }
+
+  .sidebar.collapsed {
+    height: 0;
+  }
+
+  .calendar {
+    order: 1;
+  }
+
+  .collapsed .sidebar {
+    visibility: hidden;
+    flex: 0;
+  }
+
+  .container.collapsed .calendar {
+    flex: 1;
+  }
+
+  th,
+  td {
+    padding: 5px;
+  }
+}@media screen and (max-width: 768px) {
+  .menu-toggle {
     display: block; 
+    margin-bottom: 3px;
   }
 
   .sidebar{
     flex: 1;
+    font-size: xx-large;
+    align-items: center;
+    width: -webkit-fill-available;
   }
 
   .calendar{
@@ -118,7 +164,9 @@ td:hover {
     flex: 0;
   }
   .container.collapsed .calendar {
-    flex: 1; 
+    display:table; 
+    margin: 1vh;
+    width: -webkit-fill-available;
   }
   th,
   td {

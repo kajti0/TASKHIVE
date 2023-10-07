@@ -19,12 +19,10 @@ export class LoginComponent {
     this.loginService.login(this.username ?? '', this.password ?? '').subscribe(
       (response: any) => {
         console.log('Zalogowano:', response);
-        // Możesz tu dodać obsługę sukcesu, np. przeniesienie do strony kalendarza
         this.router.navigate(['\calendar']);
       },
       (error: any) => {
         console.error('Błąd logowania:', error);
-        // Możesz tu dodać obsługę błędu, np. wyświetlenie komunikatu użytkownikowi
       }
     );
   }
